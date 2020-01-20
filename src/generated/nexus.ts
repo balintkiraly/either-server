@@ -20,11 +20,20 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CreateAnswerInput: { // input type
+    answer: NexusGenEnums['AnswerEnum']; // AnswerEnum!
+    questionID: string; // String!
+  }
+  CreateQuestionInput: { // input type
+    content: string; // String!
+    optionA: string; // String!
+    optionB: string; // String!
+  }
   LoginInput: { // input type
     email: string; // String!
     password: string; // String!
   }
-  SignUpInput: { // input type
+  RegisterInput: { // input type
     email: string; // String!
     name: string; // String!
     password: string; // String!
@@ -32,9 +41,11 @@ export interface NexusGenInputs {
 }
 
 export interface NexusGenEnums {
+  AnswerEnum: photon.AnswerEnum
 }
 
 export interface NexusGenRootTypes {
+  Answer: photon.Answer;
   AuthPayload: { // root type
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
@@ -51,30 +62,44 @@ export interface NexusGenRootTypes {
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  CreateAnswerInput: NexusGenInputs['CreateAnswerInput'];
+  CreateQuestionInput: NexusGenInputs['CreateQuestionInput'];
   LoginInput: NexusGenInputs['LoginInput'];
-  SignUpInput: NexusGenInputs['SignUpInput'];
+  RegisterInput: NexusGenInputs['RegisterInput'];
+  AnswerEnum: NexusGenEnums['AnswerEnum'];
 }
 
 export interface NexusGenFieldTypes {
+  Answer: { // field return type
+    answer: NexusGenEnums['AnswerEnum']; // AnswerEnum!
+    id: string; // ID!
+    question: NexusGenRootTypes['Question']; // Question!
+    user: NexusGenRootTypes['User']; // User!
+  }
   AuthPayload: { // field return type
     token: string; // String!
     user: NexusGenRootTypes['User']; // User!
   }
   Mutation: { // field return type
+    createAnswer: NexusGenRootTypes['Answer']; // Answer!
+    createQuestion: NexusGenRootTypes['Question']; // Question!
     login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
-    signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    register: NexusGenRootTypes['AuthPayload']; // AuthPayload!
   }
   Query: { // field return type
     me: NexusGenRootTypes['User'] | null; // User
+    randomQuestion: NexusGenRootTypes['Question']; // Question!
   }
   Question: { // field return type
-    author: NexusGenRootTypes['User']; // User!
     content: string; // String!
     id: string; // ID!
     optionA: string; // String!
+    optionACount: number; // Int!
     optionB: string; // String!
+    optionBCount: number; // Int!
   }
   User: { // field return type
+    answers: NexusGenRootTypes['Answer'][]; // [Answer!]!
     email: string; // String!
     id: string; // ID!
     name: string | null; // String
@@ -84,14 +109,27 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    createAnswer: { // args
+      data: NexusGenInputs['CreateAnswerInput']; // CreateAnswerInput!
+    }
+    createQuestion: { // args
+      data: NexusGenInputs['CreateQuestionInput']; // CreateQuestionInput!
+    }
     login: { // args
       data: NexusGenInputs['LoginInput']; // LoginInput!
     }
-    signup: { // args
-      data: NexusGenInputs['SignUpInput']; // SignUpInput!
+    register: { // args
+      data: NexusGenInputs['RegisterInput']; // RegisterInput!
     }
   }
   User: {
+    answers: { // args
+      after?: string | null; // ID
+      before?: string | null; // ID
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
     questions: { // args
       after?: string | null; // ID
       before?: string | null; // ID
@@ -107,11 +145,11 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "AuthPayload" | "Mutation" | "Query" | "Question" | "User";
+export type NexusGenObjectNames = "Answer" | "AuthPayload" | "Mutation" | "Query" | "Question" | "User";
 
-export type NexusGenInputNames = "LoginInput" | "SignUpInput";
+export type NexusGenInputNames = "CreateAnswerInput" | "CreateQuestionInput" | "LoginInput" | "RegisterInput";
 
-export type NexusGenEnumNames = never;
+export type NexusGenEnumNames = "AnswerEnum";
 
 export type NexusGenInterfaceNames = never;
 

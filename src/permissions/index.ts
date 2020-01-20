@@ -3,25 +3,18 @@ import { getUserID } from '../utils/authentication';
 
 const rules = {
   isAuthenticatedUser: rule()((_parent, _rgs, context) => {
-    const userId = getUserID(context);
-    return Boolean(userId);
-  }),
-  isPostOwner: rule()(async (_parent, { id }, context) => {
-    const userId = getUserID(context);
-    const author = await context.photon.posts
-      .findOne({
-        where: {
-          id,
-        },
-      })
-      .author();
-    return userId === author.id;
+    const userID = getUserID(context);
+    return true;
   }),
 };
 
 export const permissions = shield({
   Query: {
     me: rules.isAuthenticatedUser,
+    randomQuestion: rules.isAuthenticatedUser,
   },
-  Mutation: {},
+  Mutation: {
+    createAnswer: rules.isAuthenticatedUser,
+    createQuestion: rules.isAuthenticatedUser,
+  },
 });

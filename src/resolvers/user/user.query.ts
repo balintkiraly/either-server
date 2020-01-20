@@ -8,6 +8,7 @@ export const Query = extendType({
       type: 'User',
       nullable: true,
       resolve: (_parent, _args, context) => {
+        console.log(getUserID(context));
         return context.photon.users.findOne({
           where: {
             id: getUserID(context),

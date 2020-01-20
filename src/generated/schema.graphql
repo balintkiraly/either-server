@@ -2,9 +2,32 @@
 ### Do not make changes to this file directly
 
 
+type Answer {
+  answer: AnswerEnum!
+  id: ID!
+  question: Question!
+  user: User!
+}
+
+enum AnswerEnum {
+  optionA
+  optionB
+}
+
 type AuthPayload {
   token: String!
   user: User!
+}
+
+input CreateAnswerInput {
+  answer: AnswerEnum!
+  questionID: String!
+}
+
+input CreateQuestionInput {
+  content: String!
+  optionA: String!
+  optionB: String!
 }
 
 input LoginInput {
@@ -13,29 +36,34 @@ input LoginInput {
 }
 
 type Mutation {
+  createAnswer(data: CreateAnswerInput!): Answer!
+  createQuestion(data: CreateQuestionInput!): Question!
   login(data: LoginInput!): AuthPayload!
-  signup(data: SignUpInput!): AuthPayload!
+  register(data: RegisterInput!): AuthPayload!
 }
 
 type Query {
   me: User
+  randomQuestion: Question!
 }
 
 type Question {
-  author: User!
   content: String!
   id: ID!
   optionA: String!
+  optionACount: Int!
   optionB: String!
+  optionBCount: Int!
 }
 
-input SignUpInput {
+input RegisterInput {
   email: String!
   name: String!
   password: String!
 }
 
 type User {
+  answers(after: ID, before: ID, first: Int, last: Int, skip: Int): [Answer!]!
   email: String!
   id: ID!
   name: String

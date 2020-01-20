@@ -1,15 +1,15 @@
 import { compare, hash } from 'bcryptjs';
 import { extendType } from 'nexus';
 import { generateJWToken } from '../../utils/authentication';
-import { LoginInput, SignUpInput } from './user.input';
+import { LoginInput, RegisterInput } from './user.input';
 
 export const userMutation = extendType({
   type: 'Mutation',
   definition(t) {
-    t.field('signup', {
+    t.field('register', {
       type: 'AuthPayload',
-      args: { data: SignUpInput.asArg({ required: true }) },
-      resolve: async (_parent, { name, email, password }, context) => {
+      args: { data: RegisterInput.asArg({ required: true }) },
+      resolve: async (_parent, { data: { name, email, password } }, context) => {
         const hashedPassword = await hash(password, 10);
         const user = await context.photon.users.create({
           data: {
@@ -19,7 +19,7 @@ export const userMutation = extendType({
           },
         });
         return {
-          token: generateJWToken(context),
+          token: generateJWToken(user.id),
           user,
         };
       },
@@ -40,7 +40,7 @@ export const userMutation = extendType({
           throw new Error('Invalid password');
         }
         return {
-          token: generateJWToken(context),
+          token: generateJWToken(user.id),
           user,
         };
       },

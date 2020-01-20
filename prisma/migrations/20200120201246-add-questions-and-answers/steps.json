@@ -1,0 +1,350 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateEnum",
+      "enum": "AnswerEnum",
+      "values": [
+        "optionA",
+        "optionB"
+      ]
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Answer"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Answer",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Answer",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Answer",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Answer",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Answer",
+      "field": "answer",
+      "type": "AnswerEnum",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Answer",
+      "field": "user",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Answer",
+      "field": "user",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Answer",
+      "field": "user",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserAnswers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Answer",
+      "field": "question",
+      "type": "Question",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Answer",
+      "field": "question",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Answer",
+      "field": "question",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"QuestionAnswers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Answer",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Answer",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Answer",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "User"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "email",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "email",
+      "directive": "unique"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "password",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "name",
+      "type": "String",
+      "arity": "optional"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "questions",
+      "type": "Question",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "questions",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "questions",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserQuestion\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "answers",
+      "type": "Answer",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "answers",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "answers",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserAnswers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "User",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "User",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    },
+    {
+      "stepType": "CreateModel",
+      "model": "Question"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Question",
+      "field": "id",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Question",
+      "field": "id",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Question",
+      "field": "id",
+      "directive": "default",
+      "argument": "",
+      "value": "cuid()"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Question",
+      "field": "id",
+      "directive": "id"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Question",
+      "field": "content",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Question",
+      "field": "optionA",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Question",
+      "field": "optionB",
+      "type": "String",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Question",
+      "field": "author",
+      "type": "User",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Question",
+      "field": "author",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Question",
+      "field": "author",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"UserQuestion\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Question",
+      "field": "answers",
+      "type": "Answer",
+      "arity": "list"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Question",
+      "field": "answers",
+      "directive": "relation"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Question",
+      "field": "answers",
+      "directive": "relation",
+      "argument": "name",
+      "value": "\"QuestionAnswers\""
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Question",
+      "field": "createdAt",
+      "type": "DateTime",
+      "arity": "required"
+    },
+    {
+      "stepType": "CreateDirective",
+      "model": "Question",
+      "field": "createdAt",
+      "directive": "default"
+    },
+    {
+      "stepType": "CreateDirectiveArgument",
+      "model": "Question",
+      "field": "createdAt",
+      "directive": "default",
+      "argument": "",
+      "value": "now()"
+    }
+  ]
+}

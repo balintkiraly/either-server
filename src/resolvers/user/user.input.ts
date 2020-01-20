@@ -1,7 +1,7 @@
 import { inputObjectType } from 'nexus';
 
-export const SignUpInput = inputObjectType({
-  name: 'SignUpInput',
+export const RegisterInput = inputObjectType({
+  name: 'RegisterInput',
   definition(t) {
     t.string('name', { required: true });
     t.string('email', { required: true });

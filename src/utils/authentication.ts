@@ -1,21 +1,19 @@
-import { sign, verify } from 'jsonwebtoken'
-import { Context } from './context'
+import { sign, verify } from 'jsonwebtoken';
+import { Context } from './context';
 
-export const APP_SECRET = 'appsecret321'
+export const APP_SECRET = 'appsecret321';
 
 interface Token {
-  userId: string
+  userID: string;
 }
 
-export const getUserID = (context: Context) => {
-  const Authorization = context.request.get('Authorization')
-  if (Authorization) {
-    const token = Authorization.replace('Bearer ', '')
-    const verifiedToken = verify(token, APP_SECRET) as Token
-    return verifiedToken && verifiedToken.userId
-  }
-}
+export const getUserID = (context: Context): string => {
+  const Authorization = context.request.get('Authorization');
+  if (!Authorization) throw new Error('');
 
-export const generateJWToken = (context: Context) => {
-  sign({ userId: getUserID(context) }, APP_SECRET)
-}
+  const token = Authorization.replace('Bearer ', '');
+  const verifiedToken = verify(token, APP_SECRET) as Token;
+  return verifiedToken.userID;
+};
+
+export const generateJWToken = (userID: string) => sign({ userID }, APP_SECRET);
